@@ -19,14 +19,31 @@
 # Contributors:
 #      George Koukis - author
 
+
+# This script measures deployment and deletion times for the Online Boutique application
+# over multiple iterations.
+#
+# For each iteration it:
+#   - cleans the target namespace from any existing Online Boutique resources,
+#   - applies the given manifest and waits for all deployments to become Available,
+#   - establishes a port-forward to the `frontend` service and waits until the
+#     HTTP /_healthz endpoint returns 200 (end of deployment time),
+#   - deletes all resources from the manifest and waits until the namespace has
+#     no remaining pods (end of deletion time).
+#
+# Per-iteration KPIs (deployment time, deletion time) are:
+#   - logged to TXT file, and
+#   - appended to a CSV file
+
+
 set -euo pipefail
 
 #############################
 # CONFIGURATION
 #############################
 NS_DEFAULT="online-boutique"
-#MANIFEST_DEFAULT="./online-boutique.yaml"
-MANIFEST_DEFAULT="./online-boutique-nogen.yaml"
+MANIFEST_DEFAULT="./online-boutique.yaml"
+#MANIFEST_DEFAULT="./online-boutique-nogen.yaml"
 ITERATIONS_DEFAULT=1
 
 CSV_FILE_DEFAULT="online-boutique_kpi_results.csv"

@@ -19,6 +19,17 @@
 # Contributors:
 #      George Koukis - author
 
+
+# This script analyzes the accumulated Online Boutique KPI CSV file and prints
+# basic statistics for deployment and deletion times.
+#
+# It expects a CSV with the following columns (as produced by online_boutique_kpi.sh):
+#   run_timestamp,iteration,namespace,deployment_time_s,deletion_time_s
+#
+# For all rows, it computes:
+#   - min, max, mean, and standard deviation of deployment times
+#   - min, max, mean, and standard deviation of deletion times
+
 set -euo pipefail
 
 CSV_FILE_DEFAULT="online-boutique_kpi_results.csv"

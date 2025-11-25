@@ -19,9 +19,24 @@
 # Contributors:
 #      George Koukis - author
 
-### This script runs a series of K8s pod startup experiments, measures various latencies,
-### compiles detailed results, and ALSO measures per-pod deletion latency and batch delete time.
-### Additionally, it snapshots the node distribution per iteration without modifying manifests.
+
+
+# This script automates a series of Kubernetes experiments to benchmark pod startup
+# and deletion behavior for batches of pods using a lightweight pause container
+# (`k8s.gcr.io/pause:3.1`).
+#
+# For each selected plugin/use case label (e.g., `uc1`, `uc2`, `ath`) and each
+# configured pod count, it:
+#   - creates N pause pods in the `pod-init-times` namespace,
+#   - measures per-pod creation latency and batch readiness time,
+#   - deletes the pods in parallel and measures per-pod deletion latency and
+#     batch delete time,
+#   - records the node distribution of pods per iteration.
+#
+# Results are written to a timestamped `ExpResult_<YYYYMMDD>_<HHMMSS>/` directory
+# and compiled into summary files for use as baseline.
+
+
 
 # -----------------------------
 # Usage
@@ -178,7 +193,7 @@ EOF
     iteration_delete_total=0
     del_start_times=()
 
-    # 1) Send all delete requests (non-blocking) and record start times
+    # Send all delete requests (non-blocking) and record start times
     for (( i=1; i<=$num_pods; i++ )); do
       pod_name="pause-pod-$r-$i"
       del_start_times[$i]=$(date +%s%3N)
@@ -186,7 +201,7 @@ EOF
     done
     wait  # ensure all delete requests have been submitted to the API server
 
-    # 2) Wait for each pod to be fully deleted and measure latency
+    # Wait for each pod to be fully deleted and measure latency
     for (( i=1; i<=$num_pods; i++ )); do
       pod_name="pause-pod-$r-$i"
       kubectl wait --for=delete pod/"$pod_name" -n "$namespace" --timeout=300s > /dev/null 2>&1
