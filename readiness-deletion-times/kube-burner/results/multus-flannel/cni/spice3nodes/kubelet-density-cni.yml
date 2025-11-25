@@ -1,0 +1,27 @@
+---
+global:
+  gc: true
+  measurements:
+    - name: podLatency
+
+jobs:
+  - name: kubelet-density-cni
+    jobIterations: 1
+    qps: 100
+    burst: 100
+    namespacedIterations: false
+    namespace: kubelet-density-cni
+    waitWhenFinished: true
+    podWait: false
+    preLoadImages: true
+    preLoadPeriod: 2m
+    objects:
+
+      - objectTemplate: templates/webserver-deployment.yml
+        replicas: 1
+
+      - objectTemplate: templates/webserver-service.yml
+        replicas: 1
+
+      - objectTemplate: templates/curl-deployment.yml
+        replicas: 1

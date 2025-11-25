@@ -1,0 +1,108 @@
+-------------------------------------------
+Script execution started at: 2025-11-20 21:15:19
+Plugin: k8s, Number of Iterations: 6, Sleep Between Iterations: 60 seconds, Pod Counts: 10 50 100 150
+Running experiments with the following parameters:
+Plugin: k8s
+Number of Iterations: 6
+Sleep Between Iterations: 60 seconds
+Pod Counts: 10 50 100 150
+-------------------------------------------
+Iteration 1 started at: 2025-11-20 21:15:19
+Iteration 1 completed at: 2025-11-20 21:15:28.
+Create: total=49839 ms, avg/pod=4983 ms, batch_ready=5776 ms.
+Delete: total=27494 ms, avg/pod=2749 ms, batch_delete=3170 ms.
+Iteration 2 started at: 2025-11-20 21:16:28
+Iteration 2 completed at: 2025-11-20 21:16:35.
+Create: total=40362 ms, avg/pod=4036 ms, batch_ready=4877 ms.
+Delete: total=18955 ms, avg/pod=1895 ms, batch_delete=2198 ms.
+Iteration 3 started at: 2025-11-20 21:17:35
+Iteration 3 completed at: 2025-11-20 21:17:43.
+Create: total=36652 ms, avg/pod=3665 ms, batch_ready=4530 ms.
+Delete: total=22819 ms, avg/pod=2281 ms, batch_delete=2536 ms.
+Iteration 4 started at: 2025-11-20 21:18:43
+Iteration 4 completed at: 2025-11-20 21:18:51.
+Create: total=42710 ms, avg/pod=4271 ms, batch_ready=4978 ms.
+Delete: total=28050 ms, avg/pod=2805 ms, batch_delete=3059 ms.
+Iteration 5 started at: 2025-11-20 21:19:51
+Iteration 5 completed at: 2025-11-20 21:19:58.
+Create: total=29393 ms, avg/pod=2939 ms, batch_ready=3675 ms.
+Delete: total=27424 ms, avg/pod=2742 ms, batch_delete=3268 ms.
+Iteration 6 started at: 2025-11-20 21:20:58
+Iteration 6 completed at: 2025-11-20 21:21:05.
+Create: total=34132 ms, avg/pod=3413 ms, batch_ready=4120 ms.
+Delete: total=28002 ms, avg/pod=2800 ms, batch_delete=3054 ms.
+Iteration 1 started at: 2025-11-20 21:22:05
+Iteration 1 completed at: 2025-11-20 21:22:32.
+Create: total=621089 ms, avg/pod=12421 ms, batch_ready=16968 ms.
+Delete: total=399706 ms, avg/pod=7994 ms, batch_delete=9566 ms.
+Iteration 2 started at: 2025-11-20 21:23:32
+Iteration 2 completed at: 2025-11-20 21:24:00.
+Create: total=696422 ms, avg/pod=13928 ms, batch_ready=18188 ms.
+Delete: total=420130 ms, avg/pod=8402 ms, batch_delete=10049 ms.
+Iteration 3 started at: 2025-11-20 21:25:00
+Iteration 3 completed at: 2025-11-20 21:25:29.
+Create: total=721591 ms, avg/pod=14431 ms, batch_ready=18647 ms.
+Delete: total=448506 ms, avg/pod=8970 ms, batch_delete=10706 ms.
+Iteration 4 started at: 2025-11-20 21:26:29
+Iteration 4 completed at: 2025-11-20 21:26:57.
+Create: total=632421 ms, avg/pod=12648 ms, batch_ready=16991 ms.
+Delete: total=445370 ms, avg/pod=8907 ms, batch_delete=10465 ms.
+Iteration 5 started at: 2025-11-20 21:27:57
+Iteration 5 completed at: 2025-11-20 21:28:24.
+Create: total=682072 ms, avg/pod=13641 ms, batch_ready=17844 ms.
+Delete: total=379897 ms, avg/pod=7597 ms, batch_delete=9254 ms.
+Iteration 6 started at: 2025-11-20 21:29:24
+Iteration 6 completed at: 2025-11-20 21:29:53.
+Create: total=673271 ms, avg/pod=13465 ms, batch_ready=17960 ms.
+Delete: total=441778 ms, avg/pod=8835 ms, batch_delete=10351 ms.
+Iteration 1 started at: 2025-11-20 21:30:53
+Iteration 1 completed at: 2025-11-20 21:31:44.
+Create: total=2281579 ms, avg/pod=22815 ms, batch_ready=31917 ms.
+Delete: total=1555379 ms, avg/pod=15553 ms, batch_delete=19074 ms.
+Iteration 2 started at: 2025-11-20 21:32:44
+Iteration 2 completed at: 2025-11-20 21:33:35.
+Create: total=2265341 ms, avg/pod=22653 ms, batch_ready=31726 ms.
+Delete: total=1554542 ms, avg/pod=15545 ms, batch_delete=18932 ms.
+Iteration 3 started at: 2025-11-20 21:34:35
+Iteration 3 completed at: 2025-11-20 21:35:30.
+Create: total=2625641 ms, avg/pod=26256 ms, batch_ready=35417 ms.
+Delete: total=1629519 ms, avg/pod=16295 ms, batch_delete=19769 ms.
+Iteration 4 started at: 2025-11-20 21:36:30
+Iteration 4 completed at: 2025-11-20 21:37:23.
+Create: total=2432222 ms, avg/pod=24322 ms, batch_ready=33683 ms.
+Delete: total=1521052 ms, avg/pod=15210 ms, batch_delete=18791 ms.
+Iteration 5 started at: 2025-11-20 21:38:23
+Iteration 5 completed at: 2025-11-20 21:39:17.
+Create: total=2557140 ms, avg/pod=25571 ms, batch_ready=34272 ms.
+Delete: total=1635483 ms, avg/pod=16354 ms, batch_delete=20079 ms.
+Iteration 6 started at: 2025-11-20 21:40:17
+Iteration 6 completed at: 2025-11-20 21:41:11.
+Create: total=2579251 ms, avg/pod=25792 ms, batch_ready=34427 ms.
+Delete: total=1544185 ms, avg/pod=15441 ms, batch_delete=19101 ms.
+Iteration 1 started at: 2025-11-20 21:42:11
+Iteration 1 completed at: 2025-11-20 21:43:48.
+Create: total=5152569 ms, avg/pod=34350 ms, batch_ready=48706 ms.
+Delete: total=5226244 ms, avg/pod=34841 ms, batch_delete=47904 ms.
+Iteration 2 started at: 2025-11-20 21:44:48
+Iteration 2 completed at: 2025-11-20 21:46:11.
+Create: total=5791620 ms, avg/pod=38610 ms, batch_ready=53097 ms.
+Delete: total=3791846 ms, avg/pod=25278 ms, batch_delete=30219 ms.
+Iteration 3 started at: 2025-11-20 21:47:11
+Iteration 3 completed at: 2025-11-20 21:48:33.
+Create: total=5986798 ms, avg/pod=39911 ms, batch_ready=52853 ms.
+Delete: total=3598061 ms, avg/pod=23987 ms, batch_delete=29071 ms.
+Iteration 4 started at: 2025-11-20 21:49:33
+Iteration 4 completed at: 2025-11-20 21:50:54.
+Create: total=5914145 ms, avg/pod=39427 ms, batch_ready=52710 ms.
+Delete: total=3433042 ms, avg/pod=22886 ms, batch_delete=27648 ms.
+Iteration 5 started at: 2025-11-20 21:51:54
+Iteration 5 completed at: 2025-11-20 21:53:21.
+Create: total=6515027 ms, avg/pod=43433 ms, batch_ready=59202 ms.
+Delete: total=3503320 ms, avg/pod=23355 ms, batch_delete=28050 ms.
+Iteration 6 started at: 2025-11-20 21:54:21
+Iteration 6 completed at: 2025-11-20 21:55:37.
+Create: total=5250188 ms, avg/pod=35001 ms, batch_ready=48189 ms.
+Delete: total=3411598 ms, avg/pod=22743 ms, batch_delete=27585 ms.
+Compiling results from all experiments...
+Compiling node distributions...
+All experiments completed at: 2025-11-20 21:56:37

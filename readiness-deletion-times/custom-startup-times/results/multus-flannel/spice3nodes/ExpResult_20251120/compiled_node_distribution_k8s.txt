@@ -1,0 +1,76 @@
+------ node_dist_k8s_pods100.txt ------
+------ iteration=1 pods=100 (node distribution) ------
+iter=1 pods=100    72 spicew1
+iter=1 pods=100    28 spicew2
+------ iteration=2 pods=100 (node distribution) ------
+iter=2 pods=100    72 spicew1
+iter=2 pods=100    28 spicew2
+------ iteration=3 pods=100 (node distribution) ------
+iter=3 pods=100    72 spicew1
+iter=3 pods=100    28 spicew2
+------ iteration=4 pods=100 (node distribution) ------
+iter=4 pods=100    72 spicew1
+iter=4 pods=100    28 spicew2
+------ iteration=5 pods=100 (node distribution) ------
+iter=5 pods=100    72 spicew1
+iter=5 pods=100    28 spicew2
+------ iteration=6 pods=100 (node distribution) ------
+iter=6 pods=100    72 spicew1
+iter=6 pods=100    28 spicew2
+------ node_dist_k8s_pods10.txt ------
+------ iteration=1 pods=10 (node distribution) ------
+iter=1 pods=10     5 spicew1
+iter=1 pods=10     5 spicew2
+------ iteration=2 pods=10 (node distribution) ------
+iter=2 pods=10     5 spicew1
+iter=2 pods=10     5 spicew2
+------ iteration=3 pods=10 (node distribution) ------
+iter=3 pods=10     5 spicew1
+iter=3 pods=10     5 spicew2
+------ iteration=4 pods=10 (node distribution) ------
+iter=4 pods=10     5 spicew1
+iter=4 pods=10     5 spicew2
+------ iteration=5 pods=10 (node distribution) ------
+iter=5 pods=10     5 spicew1
+iter=5 pods=10     5 spicew2
+------ iteration=6 pods=10 (node distribution) ------
+iter=6 pods=10     5 spicew1
+iter=6 pods=10     5 spicew2
+------ node_dist_k8s_pods150.txt ------
+------ iteration=1 pods=150 (node distribution) ------
+iter=1 pods=150   104 spicew1
+iter=1 pods=150    46 spicew2
+------ iteration=2 pods=150 (node distribution) ------
+iter=2 pods=150   104 spicew1
+iter=2 pods=150    46 spicew2
+------ iteration=3 pods=150 (node distribution) ------
+iter=3 pods=150   104 spicew1
+iter=3 pods=150    46 spicew2
+------ iteration=4 pods=150 (node distribution) ------
+iter=4 pods=150   104 spicew1
+iter=4 pods=150    46 spicew2
+------ iteration=5 pods=150 (node distribution) ------
+iter=5 pods=150   104 spicew1
+iter=5 pods=150    46 spicew2
+------ iteration=6 pods=150 (node distribution) ------
+iter=6 pods=150   104 spicew1
+iter=6 pods=150    46 spicew2
+------ node_dist_k8s_pods50.txt ------
+------ iteration=1 pods=50 (node distribution) ------
+iter=1 pods=50    26 spicew1
+iter=1 pods=50    24 spicew2
+------ iteration=2 pods=50 (node distribution) ------
+iter=2 pods=50    26 spicew1
+iter=2 pods=50    24 spicew2
+------ iteration=3 pods=50 (node distribution) ------
+iter=3 pods=50    27 spicew1
+iter=3 pods=50    23 spicew2
+------ iteration=4 pods=50 (node distribution) ------
+iter=4 pods=50    26 spicew1
+iter=4 pods=50    24 spicew2
+------ iteration=5 pods=50 (node distribution) ------
+iter=5 pods=50    26 spicew1
+iter=5 pods=50    24 spicew2
+------ iteration=6 pods=50 (node distribution) ------
+iter=6 pods=50    26 spicew1
+iter=6 pods=50    24 spicew2

@@ -1,0 +1,7 @@
+microk8s.config > ~/.kube/config
+export KUBECONFIG=~/.kube/config
+kube-burner init -c kubelet-density-cni.yml --kubeconfig ~/.kube/config
+
+
+kubectl label node <your-node-name> node-role.kubernetes.io/master=
+kubectl label node <your-node-name> node-role.kubernetes.io/control-plane=

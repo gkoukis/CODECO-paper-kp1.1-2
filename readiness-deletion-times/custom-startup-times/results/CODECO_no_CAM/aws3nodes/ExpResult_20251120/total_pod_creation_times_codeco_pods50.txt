@@ -1,0 +1,9 @@
+Iteration, Total Latency (milliseconds), Average Latency per pod (milliseconds), Batch Readiness Time (milliseconds)
+1, 298442, 5968, 10180
+2, 282313, 5646, 9732
+3, 291498, 5829, 9885
+4, 264599, 5291, 9369
+5, 285354, 5707, 9805
+6, 302013, 6040, 10086
+Average Batch Readiness Time for all iterations: 9842 milliseconds.
+Final Average Latency per pod for all iterations: 5747 milliseconds.

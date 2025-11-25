@@ -1,0 +1,18 @@
+------ iteration=1 pods=150 (node distribution) ------
+iter=1 pods=150   104 spicew1
+iter=1 pods=150    46 spicew2
+------ iteration=2 pods=150 (node distribution) ------
+iter=2 pods=150   104 spicew1
+iter=2 pods=150    46 spicew2
+------ iteration=3 pods=150 (node distribution) ------
+iter=3 pods=150   104 spicew1
+iter=3 pods=150    46 spicew2
+------ iteration=4 pods=150 (node distribution) ------
+iter=4 pods=150   104 spicew1
+iter=4 pods=150    46 spicew2
+------ iteration=5 pods=150 (node distribution) ------
+iter=5 pods=150   104 spicew1
+iter=5 pods=150    46 spicew2
+------ iteration=6 pods=150 (node distribution) ------
+iter=6 pods=150   104 spicew1
+iter=6 pods=150    46 spicew2

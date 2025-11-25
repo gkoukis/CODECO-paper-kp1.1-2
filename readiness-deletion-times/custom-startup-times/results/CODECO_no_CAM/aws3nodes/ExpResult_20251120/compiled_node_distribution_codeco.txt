@@ -1,0 +1,94 @@
+------ node_dist_codeco_pods10.txt ------
+------ iteration=1 pods=10 (node distribution) ------
+iter=1 pods=10     5 ip-10-0-136-130
+iter=1 pods=10     5 ip-10-0-141-230
+------ iteration=2 pods=10 (node distribution) ------
+iter=2 pods=10     5 ip-10-0-136-130
+iter=2 pods=10     5 ip-10-0-141-230
+------ iteration=3 pods=10 (node distribution) ------
+iter=3 pods=10     4 ip-10-0-136-130
+iter=3 pods=10     6 ip-10-0-141-230
+------ iteration=4 pods=10 (node distribution) ------
+iter=4 pods=10     4 ip-10-0-136-130
+iter=4 pods=10     6 ip-10-0-141-230
+------ iteration=5 pods=10 (node distribution) ------
+iter=5 pods=10     4 ip-10-0-136-130
+iter=5 pods=10     6 ip-10-0-141-230
+------ iteration=6 pods=10 (node distribution) ------
+iter=6 pods=10     4 ip-10-0-136-130
+iter=6 pods=10     6 ip-10-0-141-230
+------ node_dist_codeco_pods100.txt ------
+------ iteration=1 pods=100 (node distribution) ------
+iter=1 pods=100    27 ip-10-0-132-49
+iter=1 pods=100    36 ip-10-0-136-130
+iter=1 pods=100    37 ip-10-0-141-230
+------ iteration=2 pods=100 (node distribution) ------
+iter=2 pods=100    27 ip-10-0-132-49
+iter=2 pods=100    37 ip-10-0-136-130
+iter=2 pods=100    36 ip-10-0-141-230
+------ iteration=3 pods=100 (node distribution) ------
+iter=3 pods=100    27 ip-10-0-132-49
+iter=3 pods=100    35 ip-10-0-136-130
+iter=3 pods=100    38 ip-10-0-141-230
+------ iteration=4 pods=100 (node distribution) ------
+iter=4 pods=100    27 ip-10-0-132-49
+iter=4 pods=100    36 ip-10-0-136-130
+iter=4 pods=100    37 ip-10-0-141-230
+------ iteration=5 pods=100 (node distribution) ------
+iter=5 pods=100    28 ip-10-0-132-49
+iter=5 pods=100    35 ip-10-0-136-130
+iter=5 pods=100    37 ip-10-0-141-230
+------ iteration=6 pods=100 (node distribution) ------
+iter=6 pods=100    29 ip-10-0-132-49
+iter=6 pods=100    35 ip-10-0-136-130
+iter=6 pods=100    36 ip-10-0-141-230
+------ node_dist_codeco_pods50.txt ------
+------ iteration=1 pods=50 (node distribution) ------
+iter=1 pods=50    11 ip-10-0-132-49
+iter=1 pods=50    19 ip-10-0-136-130
+iter=1 pods=50    20 ip-10-0-141-230
+------ iteration=2 pods=50 (node distribution) ------
+iter=2 pods=50    11 ip-10-0-132-49
+iter=2 pods=50    19 ip-10-0-136-130
+iter=2 pods=50    20 ip-10-0-141-230
+------ iteration=3 pods=50 (node distribution) ------
+iter=3 pods=50    11 ip-10-0-132-49
+iter=3 pods=50    19 ip-10-0-136-130
+iter=3 pods=50    20 ip-10-0-141-230
+------ iteration=4 pods=50 (node distribution) ------
+iter=4 pods=50    11 ip-10-0-132-49
+iter=4 pods=50    19 ip-10-0-136-130
+iter=4 pods=50    20 ip-10-0-141-230
+------ iteration=5 pods=50 (node distribution) ------
+iter=5 pods=50    11 ip-10-0-132-49
+iter=5 pods=50    19 ip-10-0-136-130
+iter=5 pods=50    20 ip-10-0-141-230
+------ iteration=6 pods=50 (node distribution) ------
+iter=6 pods=50    11 ip-10-0-132-49
+iter=6 pods=50    19 ip-10-0-136-130
+iter=6 pods=50    20 ip-10-0-141-230
+------ node_dist_codeco_pods150.txt ------
+------ iteration=1 pods=150 (node distribution) ------
+iter=1 pods=150    44 ip-10-0-132-49
+iter=1 pods=150    53 ip-10-0-136-130
+iter=1 pods=150    53 ip-10-0-141-230
+------ iteration=2 pods=150 (node distribution) ------
+iter=2 pods=150    43 ip-10-0-132-49
+iter=2 pods=150    53 ip-10-0-136-130
+iter=2 pods=150    54 ip-10-0-141-230
+------ iteration=3 pods=150 (node distribution) ------
+iter=3 pods=150    44 ip-10-0-132-49
+iter=3 pods=150    53 ip-10-0-136-130
+iter=3 pods=150    53 ip-10-0-141-230
+------ iteration=4 pods=150 (node distribution) ------
+iter=4 pods=150    44 ip-10-0-132-49
+iter=4 pods=150    52 ip-10-0-136-130
+iter=4 pods=150    54 ip-10-0-141-230
+------ iteration=5 pods=150 (node distribution) ------
+iter=5 pods=150    44 ip-10-0-132-49
+iter=5 pods=150    52 ip-10-0-136-130
+iter=5 pods=150    54 ip-10-0-141-230
+------ iteration=6 pods=150 (node distribution) ------
+iter=6 pods=150    44 ip-10-0-132-49
+iter=6 pods=150    52 ip-10-0-136-130
+iter=6 pods=150    54 ip-10-0-141-230

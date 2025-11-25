@@ -1,0 +1,12 @@
+https://github.com/kube-burner/kube-burner/commit/7f5bad2bcdaf380dbd81b378330c14e839377767
+
+flannel - limit 50 pods
+
+1. kubelet-density-cni: This creates deployments of node.js
+webservers fronted by services and another deployment of pods that
+run curl against the webserver service for readiness probe. This ensures
+that the curl pods only go into ready when they are able to reach the
+webserver srvice. kube-burner accordingly accounts for this delay in the
+podready metrics.
+
+kubelet-density: This is the most simple workload possible. It basically creates pods using an sleep image. Useful to verify max-pods in worker nodes.

@@ -1,0 +1,38 @@
+Online Boutique KPI results
+===========================
+
+Run: 2025-11-20T13:39:45 | Iteration: 1
+  Namespace       : online-boutique
+  Deployment time : 35.703227626 s
+  Deletion time   : 6.795341678 s
+-------------------------------------------------------
+Run: 2025-11-20T13:41:28 | Iteration: 2
+  Namespace       : online-boutique
+  Deployment time : 36.770138339 s
+  Deletion time   : 6.797950346 s
+-------------------------------------------------------
+Run: 2025-11-20T13:42:17 | Iteration: 3
+  Namespace       : online-boutique
+  Deployment time : 36.750557715 s
+  Deletion time   : 8.835819957 s
+-------------------------------------------------------
+Run: 2025-11-20T13:43:07 | Iteration: 4
+  Namespace       : online-boutique
+  Deployment time : 36.714601651 s
+  Deletion time   : 6.786031275 s
+-------------------------------------------------------
+Run: 2025-11-20T13:45:27 | Iteration: 5
+  Namespace       : online-boutique
+  Deployment time : 36.567713465 s
+  Deletion time   : 6.788794803 s
+-------------------------------------------------------
+Run: 2025-11-20T13:46:15 | Iteration: 6
+  Namespace       : online-boutique
+  Deployment time : 36.755115546 s
+  Deletion time   : 6.798440828 s
+-------------------------------------------------------
+Run: 2025-11-20T13:47:03 | Iteration: 7
+  Namespace       : online-boutique
+  Deployment time : 37.422074339 s
+  Deletion time   : 6.793029503 s
+-------------------------------------------------------
