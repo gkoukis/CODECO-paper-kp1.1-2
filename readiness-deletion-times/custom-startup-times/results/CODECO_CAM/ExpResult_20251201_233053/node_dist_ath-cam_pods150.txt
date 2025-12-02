@@ -1,0 +1,24 @@
+------ iteration=1 pods=150 (node distribution) ------
+iter=1 pods=150    43 ip-10-0-132-49
+iter=1 pods=150    53 ip-10-0-136-130
+iter=1 pods=150    54 ip-10-0-141-230
+------ iteration=2 pods=150 (node distribution) ------
+iter=2 pods=150    44 ip-10-0-132-49
+iter=2 pods=150    52 ip-10-0-136-130
+iter=2 pods=150    54 ip-10-0-141-230
+------ iteration=3 pods=150 (node distribution) ------
+iter=3 pods=150    44 ip-10-0-132-49
+iter=3 pods=150    52 ip-10-0-136-130
+iter=3 pods=150    54 ip-10-0-141-230
+------ iteration=4 pods=150 (node distribution) ------
+iter=4 pods=150    44 ip-10-0-132-49
+iter=4 pods=150    52 ip-10-0-136-130
+iter=4 pods=150    54 ip-10-0-141-230
+------ iteration=5 pods=150 (node distribution) ------
+iter=5 pods=150    44 ip-10-0-132-49
+iter=5 pods=150    53 ip-10-0-136-130
+iter=5 pods=150    53 ip-10-0-141-230
+------ iteration=6 pods=150 (node distribution) ------
+iter=6 pods=150    44 ip-10-0-132-49
+iter=6 pods=150    52 ip-10-0-136-130
+iter=6 pods=150    54 ip-10-0-141-230
