@@ -1,0 +1,29 @@
+## Added replicas variable
+---
+global:
+  gc: false
+  measurements:
+    - name: podLatency
+
+jobs:
+  - name: kubelet-density-heavy
+    jobIterations: ${JOB_ITERATIONS}
+    qps: ${QPS}
+    burst: ${BURST}
+    namespacedIterations: false
+    namespace: kubelet-density-heavy
+    waitWhenFinished: true
+    preLoadImages: false
+    podWait: false
+    objects:
+
+      - objectTemplate: templates/postgres-deployment.yml
+        replicas: ${POSTGRES_DEPLOY_REPLICAS}
+
+      - objectTemplate: templates/app-deployment.yml
+        replicas: ${APP_DEPLOY_REPLICAS}
+        inputVars:
+          readinessPeriod: 10
+
+      - objectTemplate: templates/postgres-service.yml
+        replicas: ${POSTGRES_SERVICE_REPLICAS}

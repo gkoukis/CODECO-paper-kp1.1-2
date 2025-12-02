@@ -1,0 +1,92 @@
+## CAM describing perfapp + PostgreSQL for kube-burner density workload
+apiVersion: codeco.he-codeco.eu/v1alpha1
+kind: CodecoApp
+metadata:
+  name: perfapp-pg-{{.Replica}}-{{.Iteration}}
+  namespace: kubelet-density-heavy
+spec:
+  appName: perfapp-pg-app
+  performanceProfile: Greenness
+  appEnergyLimit: "50"
+  appFailureTolerance: ""
+
+  codecoapp-msspec:
+
+  # ------------------------------------------------------
+  # Component 1: PostgreSQL (back-end)
+  # ------------------------------------------------------
+  - podspec:
+      containers:
+      - name: postgresql
+        image: registry.redhat.io/rhscl/postgresql-10-rhel7
+        env:
+        - name: POSTGRESQL_USER
+          value: admin
+        - name: POSTGRESQL_PASSWORD
+          value: secret
+        - name: POSTGRESQL_DATABASE
+          value: kubelet-density
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+    serviceName: postgres-{{.Replica}}-{{.Iteration}}
+    serviceChannels:
+    - channelName: perfapp-channel
+      advancedChannelSettings:
+        minBandwidth: "5"
+        frameSize: "100"
+        maxDelay: "1000000"
+        sendInterval: "10"
+      #serviceClass: ASSURED
+      otherService:
+        appName: perfapp-pg-app
+        serviceName: perfapp-{{.Replica}}-{{.Iteration}}
+        port: 8080
+
+  # ------------------------------------------------------
+  # Component 2: Perfapp (front-end workload)
+  # ------------------------------------------------------
+  - podspec:
+      containers:
+      - name: perfapp
+        image: quay.io/cloud-bulldozer/perfapp:latest
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          periodSeconds: {{ .readinessPeriod }}
+          failureThreshold: 1
+          timeoutSeconds: 60
+          initialDelaySeconds: 30
+        ports:
+        - containerPort: 8080
+        env:
+        - name: POSTGRESQL_USER
+          value: admin
+        - name: POSTGRESQL_PASSWORD
+          value: secret
+        - name: POSTGRESQL_DATABASE
+          value: kubelet-density
+        - name: POSTGRESQL_HOSTNAME
+          value: postgres-{{.Replica}}-{{.Iteration}}
+        - name: POSTGRESQL_PORT
+          value: "5432"
+        - name: POSTGRESQL_RETRY_INTERVAL
+          value: "5"
+    serviceName: perfapp-{{.Replica}}-{{.Iteration}}
+    serviceChannels:
+    - channelName: db-channel
+      advancedChannelSettings:
+        minBandwidth: "5"
+        frameSize: "100"
+        maxDelay: "1000000"
+        sendInterval: "10"
+      #serviceClass: ASSURED
+      otherService:
+        appName: perfapp-pg-app
+        serviceName: postgres-{{.Replica}}-{{.Iteration}}
+        port: 5432
+
+  complianceClass: High
+  qosClass: Gold
+  securityClass: Good

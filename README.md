@@ -9,8 +9,8 @@ This repository contains a collection of **Kubernetes performance, scalability, 
 
 # ⚠️ Important Notes
 
-- The custom-startup-times USE **CAM**.
-- The other experiments DON'T use **CAM**.
+- The *custom-startup-times* and the *kube-burner* experiments **INCLUDE** a **CAM** experiment.
+- The other experiments **DON'T** use **CAM**.
 
 - For control-plane heavy experiments (kube-burner), test the cluster progressively.
 - Keep backup of the generated files

@@ -48,10 +48,12 @@ The API traffic pattern is controlled via kube-burner’s **client-side rate lim
 3) sudo mv kube-burner /usr/local/bin/
 4) chmod +x /usr/local/bin/kube-burner
 5) kube-burner # test this command if kube-burner is installed 
-5) git clone https://github.com/gkoukis/kube-burner.git
 6) kubectl label node <worker_node> node-role.kubernetes.io/worker=""  # all the worker nodes so the pods can be allocated there
-7) cd kube-burner/examples/workloads/kubelet-density-heavy
-8) Edit the [run_experiment_with_delete.sh](https://github.com/gkoukis/kube-burner/blob/main/examples/workloads/kubelet-density-heavy/run_experiment_with_delete.sh) script, which script automates a **matrix of kube-burner runs** over different QPS/Burst and replica configurations e.g., jobIterations=1 qps=50 burst=50 postgres_deploy_replicas=1 app_deploy_replicas=1 postgres_service_replicas=1, and repeats the whole set multiple times. Select:
+7) cd kubelet-density-heavy
+
+### **For the non-CAM baseline experiment**
+
+8) Edit the [run_experiment_with_delete.sh](https://github.com/gkoukis/CODECO-paper-kp1.1-2/tree/main/readiness-deletion-times/kube-burner/kubelet-density-heavy/run_experiment_with_delete.sh) script, which script automates a **matrix of kube-burner runs** over different QPS/Burst and replica configurations e.g., jobIterations=1 qps=50 burst=50 postgres_deploy_replicas=1 app_deploy_replicas=1 postgres_service_replicas=1, and repeats the whole set multiple times. Select:
     - the iterations e.g., 6
     - experiment configuration for the selected qps and burst
     - the execution for one replica or for multiple
@@ -64,7 +66,25 @@ chmod +x extract_results.sh
 chmod +x run_experiment_with_delete.sh
 ./run_experiment_with_delete.sh
 ```
+
+### **For the CAM-focused experiment**
+
+8) Edit the [run_experiment_with_delete_CAM.sh](https://github.com/gkoukis/CODECO-paper-kp1.1-2/tree/main/readiness-deletion-times/kube-burner/kubelet-density-heavy/run_experiment_with_delete_CAM.sh) script, which script automates a **matrix of kube-burner runs** over different QPS/Burst and replica configurations e.g., jobIterations=1 qps=50 burst=50 postgres_deploy_replicas=1 app_deploy_replicas=1 postgres_service_replicas=1, and repeats the whole set multiple times. Select:
+    - the iterations e.g., 6
+    - experiment configuration for the selected qps and burst
+    - the execution for one replica or for multiple
+
+***Note that the 1st section in comments including "#experiments=(# "jobIterations=1 qps=1 burst=1 postgres_deploy_replicas=10 app_deploy_replicas=10 postgres_service_replicas=10" ...) etc. refers to the multiple replica scenarios**
+
+9) Run the script
+```bash
+chmod +x extract_results.sh
+chmod +x run_experiment_with_delete_CAM.sh
+./run_experiment_with_delete_CAM.sh
+```
+
 10) After running the `kubelet-density-heavy` experiments run the [extract_results.sh](https://github.com/gkoukis/kube-burner/blob/main/examples/workloads/kubelet-density-heavy/extract_results.sh) to parse the logs from the generated files.
 
+---
 
 ***For this experiments I'd recommend to 1st run: the single replica experiment i.e. the uncommented part of the script.**

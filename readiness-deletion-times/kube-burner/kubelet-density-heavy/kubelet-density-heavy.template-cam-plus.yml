@@ -1,0 +1,39 @@
+## kubelet-density-heavy.template-cam-plus.yml
+
+---
+global:
+  gc: false
+  measurements:
+    - name: podLatency
+
+jobs:
+  - name: kubelet-density-heavy
+    jobIterations: ${JOB_ITERATIONS}
+    qps: ${QPS}
+    burst: ${BURST}
+    namespacedIterations: false
+    namespace: kubelet-density-heavy
+    waitWhenFinished: true
+    preLoadImages: false
+    podWait: false
+    objects:
+
+      # 1) Real workload: postgres deployment
+      - objectTemplate: templates/postgres-deployment.yml
+        replicas: ${POSTGRES_DEPLOY_REPLICAS}
+
+      # 2) Real workload: perfapp deployment
+      - objectTemplate: templates/app-deployment.yml
+        replicas: ${APP_DEPLOY_REPLICAS}
+        inputVars:
+          readinessPeriod: 10
+
+      # 3) Real workload: postgres service
+      - objectTemplate: templates/postgres-service.yml
+        replicas: ${POSTGRES_SERVICE_REPLICAS}
+
+      # 4) CAM model describing perfapp + postgres pair
+      - objectTemplate: templates/perfapp-postgres-cam.yml
+        replicas: ${APP_DEPLOY_REPLICAS}
+        inputVars:
+          readinessPeriod: 10
