@@ -1,0 +1,89 @@
+------ node_dist_uc1_pods100.txt ------
+------ iteration=1 pods=100 (node distribution) ------
+iter=1 pods=100    48 k8s-edge-2
+iter=1 pods=100    52 k8s-edge-3
+------ iteration=2 pods=100 (node distribution) ------
+iter=2 pods=100    48 k8s-edge-2
+iter=2 pods=100    52 k8s-edge-3
+------ iteration=3 pods=100 (node distribution) ------
+iter=3 pods=100    48 k8s-edge-2
+iter=3 pods=100    52 k8s-edge-3
+------ iteration=4 pods=100 (node distribution) ------
+iter=4 pods=100    47 k8s-edge-2
+iter=4 pods=100    53 k8s-edge-3
+------ iteration=5 pods=100 (node distribution) ------
+iter=5 pods=100    47 k8s-edge-2
+iter=5 pods=100    53 k8s-edge-3
+------ iteration=6 pods=100 (node distribution) ------
+iter=6 pods=100    47 k8s-edge-2
+iter=6 pods=100    53 k8s-edge-3
+------ node_dist_uc1_pods10.txt ------
+------ iteration=1 pods=10 (node distribution) ------
+iter=1 pods=10     3 k8s-edge-2
+iter=1 pods=10     7 k8s-edge-3
+------ iteration=2 pods=10 (node distribution) ------
+iter=2 pods=10     3 k8s-edge-2
+iter=2 pods=10     7 k8s-edge-3
+------ iteration=3 pods=10 (node distribution) ------
+iter=3 pods=10     3 k8s-edge-2
+iter=3 pods=10     7 k8s-edge-3
+------ iteration=4 pods=10 (node distribution) ------
+iter=4 pods=10     3 k8s-edge-2
+iter=4 pods=10     7 k8s-edge-3
+------ iteration=5 pods=10 (node distribution) ------
+iter=5 pods=10     3 k8s-edge-2
+iter=5 pods=10     7 k8s-edge-3
+------ iteration=6 pods=10 (node distribution) ------
+iter=6 pods=10     3 k8s-edge-2
+iter=6 pods=10     7 k8s-edge-3
+------ node_dist_uc1_pods150.txt ------
+------ iteration=1 pods=150 (node distribution) ------
+iter=1 pods=150    72 k8s-edge-2
+iter=1 pods=150    78 k8s-edge-3
+------ iteration=2 pods=150 (node distribution) ------
+iter=2 pods=150    73 k8s-edge-2
+iter=2 pods=150    77 k8s-edge-3
+------ iteration=3 pods=150 (node distribution) ------
+iter=3 pods=150    73 k8s-edge-2
+iter=3 pods=150    77 k8s-edge-3
+------ iteration=4 pods=150 (node distribution) ------
+iter=4 pods=150    73 k8s-edge-2
+iter=4 pods=150    77 k8s-edge-3
+------ iteration=5 pods=150 (node distribution) ------
+iter=5 pods=150    72 k8s-edge-2
+iter=5 pods=150    78 k8s-edge-3
+------ iteration=6 pods=150 (node distribution) ------
+iter=6 pods=150    72 k8s-edge-2
+iter=6 pods=150    78 k8s-edge-3
+------ node_dist_uc1_pods1.txt ------
+------ iteration=1 pods=1 (node distribution) ------
+iter=1 pods=1     1 k8s-edge-3
+------ iteration=2 pods=1 (node distribution) ------
+iter=2 pods=1     1 k8s-edge-3
+------ iteration=3 pods=1 (node distribution) ------
+iter=3 pods=1     1 k8s-edge-3
+------ iteration=4 pods=1 (node distribution) ------
+iter=4 pods=1     1 k8s-edge-3
+------ iteration=5 pods=1 (node distribution) ------
+iter=5 pods=1     1 k8s-edge-3
+------ iteration=6 pods=1 (node distribution) ------
+iter=6 pods=1     1 k8s-edge-3
+------ node_dist_uc1_pods50.txt ------
+------ iteration=1 pods=50 (node distribution) ------
+iter=1 pods=50    23 k8s-edge-2
+iter=1 pods=50    27 k8s-edge-3
+------ iteration=2 pods=50 (node distribution) ------
+iter=2 pods=50    23 k8s-edge-2
+iter=2 pods=50    27 k8s-edge-3
+------ iteration=3 pods=50 (node distribution) ------
+iter=3 pods=50    23 k8s-edge-2
+iter=3 pods=50    27 k8s-edge-3
+------ iteration=4 pods=50 (node distribution) ------
+iter=4 pods=50    22 k8s-edge-2
+iter=4 pods=50    28 k8s-edge-3
+------ iteration=5 pods=50 (node distribution) ------
+iter=5 pods=50    23 k8s-edge-2
+iter=5 pods=50    27 k8s-edge-3
+------ iteration=6 pods=50 (node distribution) ------
+iter=6 pods=50    23 k8s-edge-2
+iter=6 pods=50    27 k8s-edge-3

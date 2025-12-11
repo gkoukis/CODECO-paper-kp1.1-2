@@ -1,0 +1,101 @@
+------ node_dist_uc1_pods100.txt ------
+------ iteration=1 pods=100 (node distribution) ------
+iter=1 pods=100    67 bgp-simulator
+iter=1 pods=100    14 raspberrypi1
+iter=1 pods=100    19 raspberrypi2
+------ iteration=2 pods=100 (node distribution) ------
+iter=2 pods=100    68 bgp-simulator
+iter=2 pods=100    13 raspberrypi1
+iter=2 pods=100    19 raspberrypi2
+------ iteration=3 pods=100 (node distribution) ------
+iter=3 pods=100    68 bgp-simulator
+iter=3 pods=100    13 raspberrypi1
+iter=3 pods=100    19 raspberrypi2
+------ iteration=4 pods=100 (node distribution) ------
+iter=4 pods=100    68 bgp-simulator
+iter=4 pods=100    12 raspberrypi1
+iter=4 pods=100    20 raspberrypi2
+------ iteration=5 pods=100 (node distribution) ------
+iter=5 pods=100    68 bgp-simulator
+iter=5 pods=100    13 raspberrypi1
+iter=5 pods=100    19 raspberrypi2
+------ iteration=6 pods=100 (node distribution) ------
+iter=6 pods=100    67 bgp-simulator
+iter=6 pods=100    13 raspberrypi1
+iter=6 pods=100    20 raspberrypi2
+------ node_dist_uc1_pods10.txt ------
+------ iteration=1 pods=10 (node distribution) ------
+iter=1 pods=10    10 bgp-simulator
+------ iteration=2 pods=10 (node distribution) ------
+iter=2 pods=10    10 bgp-simulator
+------ iteration=3 pods=10 (node distribution) ------
+iter=3 pods=10    10 bgp-simulator
+------ iteration=4 pods=10 (node distribution) ------
+iter=4 pods=10    10 bgp-simulator
+------ iteration=5 pods=10 (node distribution) ------
+iter=5 pods=10    10 bgp-simulator
+------ iteration=6 pods=10 (node distribution) ------
+iter=6 pods=10    10 bgp-simulator
+------ node_dist_uc1_pods150.txt ------
+------ iteration=1 pods=150 (node distribution) ------
+iter=1 pods=150    68 bgp-simulator
+iter=1 pods=150    37 raspberrypi1
+iter=1 pods=150    45 raspberrypi2
+------ iteration=2 pods=150 (node distribution) ------
+iter=2 pods=150    68 bgp-simulator
+iter=2 pods=150    43 raspberrypi1
+iter=2 pods=150    39 raspberrypi2
+------ iteration=3 pods=150 (node distribution) ------
+iter=3 pods=150    68 bgp-simulator
+iter=3 pods=150    38 raspberrypi1
+iter=3 pods=150    44 raspberrypi2
+------ iteration=4 pods=150 (node distribution) ------
+iter=4 pods=150    67 bgp-simulator
+iter=4 pods=150    40 raspberrypi1
+iter=4 pods=150    43 raspberrypi2
+------ iteration=5 pods=150 (node distribution) ------
+iter=5 pods=150    68 bgp-simulator
+iter=5 pods=150    41 raspberrypi1
+iter=5 pods=150    41 raspberrypi2
+------ iteration=6 pods=150 (node distribution) ------
+iter=6 pods=150    68 bgp-simulator
+iter=6 pods=150    36 raspberrypi1
+iter=6 pods=150    46 raspberrypi2
+------ node_dist_uc1_pods1.txt ------
+------ iteration=1 pods=1 (node distribution) ------
+iter=1 pods=1     1 bgp-simulator
+------ iteration=2 pods=1 (node distribution) ------
+iter=2 pods=1     1 bgp-simulator
+------ iteration=3 pods=1 (node distribution) ------
+iter=3 pods=1     1 bgp-simulator
+------ iteration=4 pods=1 (node distribution) ------
+iter=4 pods=1     1 bgp-simulator
+------ iteration=5 pods=1 (node distribution) ------
+iter=5 pods=1     1 bgp-simulator
+------ iteration=6 pods=1 (node distribution) ------
+iter=6 pods=1     1 bgp-simulator
+------ node_dist_uc1_pods50.txt ------
+------ iteration=1 pods=50 (node distribution) ------
+iter=1 pods=50    40 bgp-simulator
+iter=1 pods=50     2 raspberrypi1
+iter=1 pods=50     8 raspberrypi2
+------ iteration=2 pods=50 (node distribution) ------
+iter=2 pods=50    40 bgp-simulator
+iter=2 pods=50     2 raspberrypi1
+iter=2 pods=50     8 raspberrypi2
+------ iteration=3 pods=50 (node distribution) ------
+iter=3 pods=50    41 bgp-simulator
+iter=3 pods=50     1 raspberrypi1
+iter=3 pods=50     8 raspberrypi2
+------ iteration=4 pods=50 (node distribution) ------
+iter=4 pods=50    40 bgp-simulator
+iter=4 pods=50     2 raspberrypi1
+iter=4 pods=50     8 raspberrypi2
+------ iteration=5 pods=50 (node distribution) ------
+iter=5 pods=50    40 bgp-simulator
+iter=5 pods=50     2 raspberrypi1
+iter=5 pods=50     8 raspberrypi2
+------ iteration=6 pods=50 (node distribution) ------
+iter=6 pods=50    41 bgp-simulator
+iter=6 pods=50     1 raspberrypi1
+iter=6 pods=50     8 raspberrypi2

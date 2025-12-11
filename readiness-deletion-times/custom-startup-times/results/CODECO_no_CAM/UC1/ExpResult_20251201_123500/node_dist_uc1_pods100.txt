@@ -1,0 +1,18 @@
+------ iteration=1 pods=100 (node distribution) ------
+iter=1 pods=100    48 k8s-edge-2
+iter=1 pods=100    52 k8s-edge-3
+------ iteration=2 pods=100 (node distribution) ------
+iter=2 pods=100    48 k8s-edge-2
+iter=2 pods=100    52 k8s-edge-3
+------ iteration=3 pods=100 (node distribution) ------
+iter=3 pods=100    48 k8s-edge-2
+iter=3 pods=100    52 k8s-edge-3
+------ iteration=4 pods=100 (node distribution) ------
+iter=4 pods=100    47 k8s-edge-2
+iter=4 pods=100    53 k8s-edge-3
+------ iteration=5 pods=100 (node distribution) ------
+iter=5 pods=100    47 k8s-edge-2
+iter=5 pods=100    53 k8s-edge-3
+------ iteration=6 pods=100 (node distribution) ------
+iter=6 pods=100    47 k8s-edge-2
+iter=6 pods=100    53 k8s-edge-3

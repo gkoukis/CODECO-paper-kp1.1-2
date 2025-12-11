@@ -1,0 +1,9 @@
+Iteration, Total Delete Latency (milliseconds), Average Delete Latency per pod (milliseconds), Batch Delete Time (milliseconds)
+1, 21575, 2157, 2958
+2, 19614, 1961, 2742
+3, 22671, 2267, 3078
+4, 22074, 2207, 2988
+5, 21569, 2156, 2992
+6, 21250, 2125, 2867
+Average Batch Delete Time for all iterations: 2937 milliseconds.
+Final Average Delete Latency per pod for all iterations: 2145 milliseconds.

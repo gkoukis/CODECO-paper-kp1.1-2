@@ -1,0 +1,24 @@
+------ iteration=1 pods=100 (node distribution) ------
+iter=1 pods=100    67 bgp-simulator
+iter=1 pods=100    14 raspberrypi1
+iter=1 pods=100    19 raspberrypi2
+------ iteration=2 pods=100 (node distribution) ------
+iter=2 pods=100    68 bgp-simulator
+iter=2 pods=100    13 raspberrypi1
+iter=2 pods=100    19 raspberrypi2
+------ iteration=3 pods=100 (node distribution) ------
+iter=3 pods=100    68 bgp-simulator
+iter=3 pods=100    13 raspberrypi1
+iter=3 pods=100    19 raspberrypi2
+------ iteration=4 pods=100 (node distribution) ------
+iter=4 pods=100    68 bgp-simulator
+iter=4 pods=100    12 raspberrypi1
+iter=4 pods=100    20 raspberrypi2
+------ iteration=5 pods=100 (node distribution) ------
+iter=5 pods=100    68 bgp-simulator
+iter=5 pods=100    13 raspberrypi1
+iter=5 pods=100    19 raspberrypi2
+------ iteration=6 pods=100 (node distribution) ------
+iter=6 pods=100    67 bgp-simulator
+iter=6 pods=100    13 raspberrypi1
+iter=6 pods=100    20 raspberrypi2
