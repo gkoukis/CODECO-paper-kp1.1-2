@@ -1,0 +1,185 @@
+apiVersion: codeco.he-codeco.eu/v1alpha1
+kind: CodecoApp
+metadata:
+  #adding acm metadata
+  generation: 1
+  name: codecoappinstance2 #change name for multiple instances
+  namespace: he-codeco-acm #default
+  resourceVersion: "1456"
+  uid: 5c948d7e-43d6-425b-b0b2-76402b606e07
+spec:
+  appEnergyLimit: "50"
+  appFailureTolerance: ""
+  performanceProfile: Greenness
+  appName: acm-swm-app
+  codecoapp-msspec:
+  - podspec:
+      containers:
+      - name: details
+        image: docker.io/istio/examples-bookinfo-details-v1:1.20.3
+        ports:
+        - containerPort: 9080
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "1"
+            memory: 2Gi          
+    serviceChannels: 
+    - advancedChannelSettings:
+       maxDelay: "10s"    # remove after SWM open issue is solved   
+      channelName: productpage
+      serviceClass: ASSURED
+      otherService:
+        appName: acm-swm-app
+        serviceName: productpage
+        port: 9080
+    serviceName: details
+  - podspec:
+      #nodeSelector:
+      # exp: enrgy
+      containers:
+      - name: ratings
+        image: docker.io/istio/examples-bookinfo-ratings-v1:1.20.3
+        ports:
+        - containerPort: 9080
+          protocol: TCP
+    serviceChannels: []
+    serviceName: ratings
+  - podspec:
+      containers:
+      - name: reviews
+        image:  docker.io/istio/examples-bookinfo-reviews-v2:1.20.3
+        ports:
+        - containerPort: 9080
+          protocol: TCP
+    serviceChannels:
+    - advancedChannelSettings:
+       maxDelay: "10s"    # remove after SWM open issue is solved   
+      channelName: ratings
+      serviceClass: ASSURED
+      otherService:
+        appName: acm-swm-app
+        serviceName: ratings
+        #remove ports 
+        #port: 9080
+        port: 9080
+    serviceName: reviews
+  - podspec:
+      containers:
+      - name: productpage
+        image: docker.io/istio/examples-bookinfo-productpage-v1:1.20.3
+        ports:
+        - containerPort: 9080
+          protocol: TCP  
+    serviceChannels:
+    - advancedChannelSettings:
+       maxDelay: "10s"    
+      channelName: reviews
+      serviceClass: ASSURED
+      otherService:
+        appName: acm-swm-app
+        serviceName: reviews
+        port: 9080
+    - advancedChannelSettings:
+       maxDelay: "10s"    # remove after SWM open issue is solved   
+      channelName: details
+      serviceClass: ASSURED
+      otherService:
+        appName: acm-swm-app
+        serviceName: details
+        port: 9080
+    serviceName: productpage
+
+  complianceClass: High
+  qosClass: BestEffort
+  securityClass: Good
+
+---
+##################################################################################################
+# Productpage services
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: productpage
+  namespace: he-codeco-acm
+  labels:
+    app: productpage
+    service: productpage
+spec:
+  ports:
+  - port: 9080
+    name: http
+    nodePort: 30000
+  type: NodePort
+  selector:
+    serviceName: productpage
+
+---
+##################################################################################################
+# Details service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: details
+  namespace: he-codeco-acm
+  labels:
+    app: details
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    serviceName: details
+
+---
+##################################################################################################
+# Reviews service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: reviews
+  namespace: he-codeco-acm
+  labels:
+    app: reviews
+    service: reviews
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    serviceName: reviews    
+
+
+---
+##################################################################################################
+# Ratings service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: ratings
+  namespace: he-codeco-acm
+  labels:
+    app: ratings
+    service: ratings
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    serviceName: ratings  
+
+
+# wait for the pods to be ready then apply:
+
+
+#kubectl label pod acm-swm-app-productpage serviceName=productpage
+#kubectl label pod acm-swm-app-details serviceName=details
+#kubectl label pod acm-swm-app-ratings serviceName=ratings
+#kubectl label pod acm-swm-app-reviews serviceName=reviews
+
+
+
