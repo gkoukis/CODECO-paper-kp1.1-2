@@ -134,7 +134,7 @@ metadata:
   namespace: $namespace
 spec:
   appName: acm-swm-app
-  performanceProfile: Greenness
+  #performanceProfile: Greenness
   appEnergyLimit: "20"
   appFailureTolerance: ""
   codecoapp-msspec:
@@ -148,12 +148,12 @@ spec:
     serviceName: pause-service
     serviceChannels:
     - channelName: pause-channel
-      serviceClass: ASSURED
+      #serviceClass: ASSURED
       advancedChannelSettings:
-        bandwidth: "5M"
-        #frameSize: "100"
-        maxDelay: "1ns"
-        #sendInterval: "10"
+        minBandwidth: "5"
+        frameSize: "100"
+        maxDelay: "1000000"
+        sendInterval: "10"
       otherService:
         appName: acm-swm-app
         serviceName: pause-service
