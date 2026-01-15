@@ -230,6 +230,7 @@ spec:
   appName: ${APP_NAME_PREFIX}
   codecoapp-msspec:
   - podspec:
+      schedulerName: qos-scheduler
       containers:
       - image: ${BACKEND_IMAGE}
         name: skupper-backend
@@ -255,6 +256,7 @@ spec:
         serviceName: ${FRONTEND_BASE_SERVICE_NAME}
     serviceName: ${BACKEND_SERVICE_NAME}
   - podspec:
+      schedulerName: qos-scheduler
       containers:
       - image: ${FRONTEND_IMAGE}
         name: front-end
@@ -283,6 +285,7 @@ EOF
       local fe_name="${FRONTEND_BASE_SERVICE_NAME}-${i}"
       cat >> "${tmp}" <<EOF
   - podspec:
+      schedulerName: qos-scheduler  
       containers:
       - image: ${FRONTEND_IMAGE}
         name: front-end

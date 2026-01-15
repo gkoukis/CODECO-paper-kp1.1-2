@@ -146,6 +146,7 @@ kind: Pod
 metadata:
   name: $pod_name
 spec:
+  #schedulerName: default-scheduler
   containers:
   - name: pause
     image: k8s.gcr.io/pause:3.1

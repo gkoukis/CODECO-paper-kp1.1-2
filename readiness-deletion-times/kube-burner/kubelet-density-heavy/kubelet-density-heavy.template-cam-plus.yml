@@ -19,11 +19,11 @@ jobs:
     objects:
 
       # 1) Real workload: postgres deployment
-      - objectTemplate: templates/postgres-deployment.yml
+      - objectTemplate: templates/postgres-deployment-cam.yml
         replicas: ${POSTGRES_DEPLOY_REPLICAS}
 
       # 2) Real workload: perfapp deployment
-      - objectTemplate: templates/app-deployment.yml
+      - objectTemplate: templates/app-deployment-cam.yml
         replicas: ${APP_DEPLOY_REPLICAS}
         inputVars:
           readinessPeriod: 10

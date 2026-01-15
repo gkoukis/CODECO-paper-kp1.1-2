@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 # Copyright (c) 2024 Athena RC.
 #
@@ -23,6 +23,8 @@
 ### This script runs a series of K8s pod startup experiments, measures various latencies,
 ### compiles detailed results, and ALSO measures per-pod deletion latency and batch delete time.
 ### Additionally, it snapshots the node distribution per iteration without modifying manifests.
+
+# EDIT: fix the custom_startup_CAM to delete codecoapps after each iter
 
 # -----------------------------
 # Usage
@@ -171,6 +173,7 @@ metadata:
     app: $pod_name
     managed-by: "manual"
 spec:
+  schedulerName: qos-scheduler
   containers:
   - name: pause
     image: k8s.gcr.io/pause:3.1
@@ -242,6 +245,22 @@ EOF
     # Accumulate across iterations
     total_delete_latency_acc=$(( total_delete_latency_acc + iteration_delete_total ))
     total_batch_delete_acc=$(( total_batch_delete_acc + batch_delete_time ))
+
+    # ---- Cleanup: Delete CodecoApps AFTER measurements are complete ----
+    # This prevents CodecoApp accumulation that crashes the acm-operator-controller
+    echo "Cleaning up CodecoApps for iteration $r..." | tee -a "$timestamp_file"
+    for (( i=1; i<=$num_pods; i++ )); do
+      pod_name="pause-pod-$r-$i"
+      kubectl delete codecoapp "$pod_name" -n "$namespace" --wait=false > /dev/null 2>&1 &
+    done
+    wait  # ensure all delete requests have been submitted
+
+    # Wait for CodecoApps to be fully deleted before next iteration
+    for (( i=1; i<=$num_pods; i++ )); do
+      pod_name="pause-pod-$r-$i"
+      kubectl wait --for=delete codecoapp/"$pod_name" -n "$namespace" --timeout=300s > /dev/null 2>&1
+    done
+    echo "CodecoApps cleanup complete for iteration $r." | tee -a "$timestamp_file"
 
     # ---- logging & sleep ----
     iteration_end_time=$(date '+%Y-%m-%d %H:%M:%S')

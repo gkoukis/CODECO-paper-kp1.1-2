@@ -16,6 +16,7 @@ spec:
   # Component 1: PostgreSQL (back-end)
   # ------------------------------------------------------
   - podspec:
+      schedulerName: qos-scheduler
       containers:
       - name: postgresql
         image: registry.redhat.io/rhscl/postgresql-10-rhel7
@@ -47,6 +48,7 @@ spec:
   # Component 2: Perfapp (front-end workload)
   # ------------------------------------------------------
   - podspec:
+      schedulerName: qos-scheduler
       containers:
       - name: perfapp
         image: quay.io/cloud-bulldozer/perfapp:latest
