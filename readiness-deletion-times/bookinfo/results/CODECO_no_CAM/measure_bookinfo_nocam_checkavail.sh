@@ -27,7 +27,7 @@ set -euo pipefail
 # - Measures deletion time of created resources
 # - Labels everything created in the namespace (best with a dedicated namespace)
 # - Cleans up on Ctrl+C
-#
+#a
 # Usage:
 #   ./measure_bookinfo_noncam_cheackavail.sh <yaml_file> <iterations> [namespace] [sleep_between_iterations]
 #

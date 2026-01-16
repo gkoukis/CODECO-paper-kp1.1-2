@@ -141,6 +141,7 @@ spec:
   appFailureTolerance: ""
   codecoapp-msspec:
   - podspec:
+      schedulerName: qos-scheduler
       containers:
       - name: pause
         image: k8s.gcr.io/pause:3.1

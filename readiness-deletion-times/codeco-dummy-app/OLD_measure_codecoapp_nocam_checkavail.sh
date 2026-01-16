@@ -19,43 +19,39 @@
 # Contributors:
 #      George Koukis - author
 #
-
-# EDIT: change the comparison idea about 
-
-# Non-CAM version with N SEPARATE DEPLOYMENTS (fair comparison with CODECO):
-#  - 1 backend deployment (hello-world backend)
-#  - N separate frontend deployments (each with 1 replica)
 #
-# This mirrors what CODECO/CAM does: each frontend is a distinct microservice,
-# not N replicas of the same deployment.
+# Non-CAM version (actual deletion timing):
+#  - 1 backend (hello-world backend)
+#  - N frontend pods (scaled via Deployment replicas)
 #
 # For each N and each iteration:
-#  - Deploy backend + N separate frontend deployments
-#  - Wait for ALL Deployments to be Available
+#  - Deploy backend + frontend
+#  - Wait for Deployments to be Available
 #  - Additionally check that the frontend can be reached over HTTP
 #  - Measure deployment time (ms) until "working" state
 #  - Delete all experiment resources
 #  - Measure deletion time (ms) UNTIL PODS ARE GONE (actual teardown)
 #
+# Key fix vs the old script:
+#  - Add the experiment label to *pod template labels* so pods are selectable
+#  - Wait for pod deletion (not just deploy/svc disappearance)
+#
 # Results:
-#   codeco_dummy_app_nocam_N_deployments_<timestamp>.txt
+#   codeco_dummy_app_nocam_checkavail_<timestamp>.txt
 #
 # Example:
-#   ./measure_codecoapp_nocam_checkavail_test.sh 6 "1 10 25 50" skupper-demo
+#   ./measure_codecoapp_nocam_checkavail.sh 6 "1 10 25 50" skupper-demo
 
 set -euo pipefail
 
 usage() {
   echo "Usage: $0 <iterations> <frontend_replicas_values> [namespace]"
   echo "  iterations              : number of iterations per replica count (e.g. 3)"
-  echo "  frontend_replicas_values: quoted list of frontend counts (e.g. \"1 10 20\")"
+  echo "  frontend_replicas_values: quoted list of frontend replica counts (e.g. "1 10 20")"
   echo "  namespace               : (optional) namespace, default: skupper-demo"
   echo
-  echo "NOTE: This script creates N SEPARATE frontend Deployments (not 1 Deployment with N replicas)"
-  echo "      to fairly compare with CODECO/CAM which creates N separate microservice specs."
-  echo
   echo "Example:"
-  echo "  $0 3 \"1 10\" skupper-demo"
+  echo "  $0 3 "1 10" skupper-demo"
 }
 
 if [ $# -lt 2 ]; then
@@ -89,30 +85,27 @@ DELETE_POLL_DELAY="${DELETE_POLL_DELAY:-1}"             # seconds between delete
 
 # Results file
 timestamp_now=$(date '+%Y%m%d_%H%M%S')
-results_file="codeco_dummy_app_nocam_N_deployments_${timestamp_now}.txt"
+results_file="codeco_dummy_app_nocam_check_${timestamp_now}.txt"
 
 echo "-------------------------------------------" | tee -a "${results_file}"
-echo "Backend=1, Frontend=N SEPARATE DEPLOYMENTS Experiment (non-CAM, fair comparison)" | tee -a "${results_file}"
+echo "Backend=1, Frontend=N Scaling Experiment (non-CAM, connectivity + ACTUAL delete)" | tee -a "${results_file}"
 echo "Timestamp         : ${timestamp_now}" | tee -a "${results_file}"
 echo "Namespace         : ${namespace}" | tee -a "${results_file}"
 echo "Iterations        : ${iterations}" | tee -a "${results_file}"
-echo "Frontend counts   : ${frontend_replicas_values}" | tee -a "${results_file}"
+echo "Frontend replicas : ${frontend_replicas_values}" | tee -a "${results_file}"
 echo "Connectivity timeout (s): ${CONNECTIVITY_TIMEOUT}" | tee -a "${results_file}"
 echo "Deletion timeout (s)    : ${DELETE_TIMEOUT}" | tee -a "${results_file}"
-echo "NOTE: Creates N separate frontend Deployments (not 1 with N replicas)" | tee -a "${results_file}"
 echo "-------------------------------------------" | tee -a "${results_file}"
-echo "iteration,frontend_count,deploy_time_ms,delete_time_ms,connectivity_ok,total_deployments" >> "${results_file}"
+echo "iteration,frontend_replicas,deploy_time_ms,delete_time_ms,connectivity_ok" >> "${results_file}"
 
 EXPERIMENT_LABEL_KEY="experiment"
-EXPERIMENT_LABEL_VAL="codeco_dummy_app_n_deploy"
+EXPERIMENT_LABEL_VAL="codeco_dummy_app"
 
 now_ms(){ date +%s%3N; }
 
 count_labeled() {
   local kind_csv="$1"  # e.g. "pod" or "deploy,svc"
-  kubectl get ${kind_csv} -n "${namespace}" \
-    -l "${EXPERIMENT_LABEL_KEY}=${EXPERIMENT_LABEL_VAL}" \
-    --no-headers 2>/dev/null | wc -l | tr -d ' ' || echo "0"
+  kubectl get ${kind_csv} -n "${namespace}"     -l "${EXPERIMENT_LABEL_KEY}=${EXPERIMENT_LABEL_VAL}"     --no-headers 2>/dev/null | wc -l | tr -d ' ' || echo "0"
 }
 
 # Wait until *pods* and key resources are gone for this experiment label
@@ -148,16 +141,11 @@ ensure_curl_helper_pod() {
     echo "Curl helper pod '${CURL_HELPER_POD}' already exists."
   else
     echo "Creating curl helper pod '${CURL_HELPER_POD}' in namespace '${namespace}'..."
-    kubectl run "${CURL_HELPER_POD}" \
-      -n "${namespace}" \
-      --image=curlimages/curl \
-      --restart=Never \
-      --command -- sleep 365d >/dev/null 2>&1
+    kubectl run "${CURL_HELPER_POD}"       -n "${namespace}"       --image=curlimages/curl       --restart=Never       --command -- sleep 365d >/dev/null 2>&1
   fi
 
   echo "Waiting for curl helper pod '${CURL_HELPER_POD}' to be Ready..."
-  kubectl wait --for=condition=Ready pod/"${CURL_HELPER_POD}" \
-    -n "${namespace}" --timeout=300s >/dev/null 2>&1
+  kubectl wait --for=condition=Ready pod/"${CURL_HELPER_POD}"     -n "${namespace}" --timeout=300s >/dev/null 2>&1
   echo "Curl helper pod is Ready."
 }
 
@@ -172,8 +160,7 @@ wait_for_connectivity() {
   echo "  Checking connectivity to ${url} (timeout=${timeout_sec}s)..."
 
   while true; do
-    if kubectl exec -n "${namespace}" "${CURL_HELPER_POD}" -- \
-        curl -sS -m 3 "${url}" >/dev/null 2>&1; then
+    if kubectl exec -n "${namespace}" "${CURL_HELPER_POD}" --         curl -sS -m 3 "${url}" >/dev/null 2>&1; then
       echo "  Connectivity OK for ${url}"
       return 0
     fi
@@ -191,30 +178,33 @@ wait_for_connectivity() {
 }
 
 echo "Initial cleanup: deleting any leftover experiment resources in namespace '${namespace}'..."
-kubectl delete deploy,svc -n "${namespace}" \
-  -l "${EXPERIMENT_LABEL_KEY}=${EXPERIMENT_LABEL_VAL}" \
-  --ignore-not-found=true >/dev/null 2>&1 || true
+kubectl delete deploy,svc -n "${namespace}"   -l "${EXPERIMENT_LABEL_KEY}=${EXPERIMENT_LABEL_VAL}"   --ignore-not-found=true >/dev/null 2>&1 || true
+
+# If you previously ran the old script, pods may exist without the experiment label.
+# This optional toggle helps remove them as well (limited to the app labels used here).
+if [ "${CLEANUP_OLD_UNLABELED_PODS:-false}" = "true" ]; then
+  echo "CLEANUP_OLD_UNLABELED_PODS=true -> deleting any pods with app=skupper-backend OR app=skupper-frontend (namespace=${namespace})"
+  kubectl delete pod -n "${namespace}" -l "app=skupper-backend" --ignore-not-found=true >/dev/null 2>&1 || true
+  kubectl delete pod -n "${namespace}" -l "app=skupper-frontend" --ignore-not-found=true >/dev/null 2>&1 || true
+fi
 
 wait_for_experiment_actual_deleted
 echo "Initial cleanup done."
 
 ensure_curl_helper_pod
 
-for num_frontends in ${frontend_replicas_values}; do
+for replicas in ${frontend_replicas_values}; do
   echo "============================================================" | tee -a "${results_file}"
-  echo "Frontend Deployments (N) = ${num_frontends}, Backend = 1" | tee -a "${results_file}"
-  echo "Total Deployments = $((num_frontends + 1))" | tee -a "${results_file}"
+  echo "Frontend replicas (N) = ${replicas}, Backend = 1" | tee -a "${results_file}"
   echo "============================================================" | tee -a "${results_file}"
 
   for (( it=1; it<=iterations; it++ )); do
     echo "------------------------------------------------------------" | tee -a "${results_file}"
-    echo "Iteration ${it}/${iterations} for N=${num_frontends}" | tee -a "${results_file}"
+    echo "Iteration ${it}/${iterations} for N=${replicas}" | tee -a "${results_file}"
     echo "------------------------------------------------------------" | tee -a "${results_file}"
 
     # Per-iteration cleanup: ensure no previous experiment resources linger
-    kubectl delete deploy,svc -n "${namespace}" \
-      -l "${EXPERIMENT_LABEL_KEY}=${EXPERIMENT_LABEL_VAL}" \
-      --ignore-not-found=true >/dev/null 2>&1 || true
+    kubectl delete deploy,svc -n "${namespace}"       -l "${EXPERIMENT_LABEL_KEY}=${EXPERIMENT_LABEL_VAL}"       --ignore-not-found=true >/dev/null 2>&1 || true
     wait_for_experiment_actual_deleted
 
     # -------------------------
@@ -222,8 +212,11 @@ for num_frontends in ${frontend_replicas_values}; do
     # -------------------------
     start_deploy_ms=$(now_ms)
 
-    backend_name="skupper-backend-${num_frontends}-${it}"
-    backend_svc="skupper-backend-${num_frontends}-${it}"
+    backend_name="skupper-backend-${replicas}-${it}"
+    backend_svc="skupper-backend-${replicas}-${it}"
+
+    frontend_name="skupper-frontend-${replicas}-${it}"
+    frontend_svc="skupper-frontend-${replicas}-${it}"
 
     # Backend Deployment + Service (1 replica)
     cat <<EOF | kubectl apply -f - >/dev/null
@@ -236,23 +229,23 @@ metadata:
     app: skupper-backend
     ${EXPERIMENT_LABEL_KEY}: ${EXPERIMENT_LABEL_VAL}
     run: "${it}"
-    frontend-count: "${num_frontends}"
+    replica-group: "${replicas}"
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: skupper-backend
       run: "${it}"
-      frontend-count: "${num_frontends}"
+      replica-group: "${replicas}"
   template:
     metadata:
       labels:
         app: skupper-backend
         ${EXPERIMENT_LABEL_KEY}: ${EXPERIMENT_LABEL_VAL}
         run: "${it}"
-        frontend-count: "${num_frontends}"
+        replica-group: "${replicas}"
     spec:
-      #schedulerName: default-scheduler    
+      #schedulerName: default-scheduler      
       containers:
       - name: skupper-backend
         image: quay.io/skupper/hello-world-backend:latest
@@ -268,33 +261,19 @@ metadata:
     app: skupper-backend
     ${EXPERIMENT_LABEL_KEY}: ${EXPERIMENT_LABEL_VAL}
     run: "${it}"
-    frontend-count: "${num_frontends}"
+    replica-group: "${replicas}"
 spec:
   selector:
     app: skupper-backend
     run: "${it}"
-    frontend-count: "${num_frontends}"
+    replica-group: "${replicas}"
   ports:
   - port: 8080
     targetPort: 8080
 EOF
 
-    # Create N SEPARATE frontend Deployments (each with 1 replica)
-    # This mirrors what CODECO does with N separate microservice specs
-    deployment_names=("${backend_name}")
-    
-    for (( fe=1; fe<=num_frontends; fe++ )); do
-      if [ "${fe}" -eq 1 ]; then
-        frontend_name="skupper-frontend-${num_frontends}-${it}"
-        frontend_svc="skupper-frontend-${num_frontends}-${it}"
-      else
-        frontend_name="skupper-frontend-${num_frontends}-${it}-${fe}"
-        frontend_svc="skupper-frontend-${num_frontends}-${it}-${fe}"
-      fi
-      
-      deployment_names+=("${frontend_name}")
-
-      cat <<EOF | kubectl apply -f - >/dev/null &
+    # Frontend Deployment + Service (N replicas)
+    cat <<EOF | kubectl apply -f - >/dev/null
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -304,24 +283,21 @@ metadata:
     app: skupper-frontend
     ${EXPERIMENT_LABEL_KEY}: ${EXPERIMENT_LABEL_VAL}
     run: "${it}"
-    frontend-count: "${num_frontends}"
-    frontend-index: "${fe}"
+    replica-group: "${replicas}"
 spec:
-  replicas: 1
+  replicas: ${replicas}
   selector:
     matchLabels:
       app: skupper-frontend
       run: "${it}"
-      frontend-count: "${num_frontends}"
-      frontend-index: "${fe}"
+      replica-group: "${replicas}"
   template:
     metadata:
       labels:
         app: skupper-frontend
         ${EXPERIMENT_LABEL_KEY}: ${EXPERIMENT_LABEL_VAL}
         run: "${it}"
-        frontend-count: "${num_frontends}"
-        frontend-index: "${fe}"
+        replica-group: "${replicas}"
     spec:
       #schedulerName: default-scheduler      
       containers:
@@ -342,36 +318,23 @@ metadata:
     app: skupper-frontend
     ${EXPERIMENT_LABEL_KEY}: ${EXPERIMENT_LABEL_VAL}
     run: "${it}"
-    frontend-count: "${num_frontends}"
-    frontend-index: "${fe}"
+    replica-group: "${replicas}"
 spec:
   selector:
     app: skupper-frontend
     run: "${it}"
-    frontend-count: "${num_frontends}"
-    frontend-index: "${fe}"
+    replica-group: "${replicas}"
   ports:
   - port: 8080
     targetPort: 8080
 EOF
-    done
-    
-    # Wait for all kubectl apply commands to complete
-    wait
 
-    # Wait for ALL deployments to be Available
-    echo "  Waiting for ${#deployment_names[@]} deployments to be ready..." | tee -a "${results_file}"
-    
-    for deploy_name in "${deployment_names[@]}"; do
-      kubectl wait --for=condition=available deployment/"${deploy_name}" \
-        -n "${namespace}" --timeout=600s >/dev/null 2>&1
-    done
+    # Wait for both deployments to be Available (all pods Ready)
+    kubectl wait --for=condition=available deployment/"${backend_name}"       -n "${namespace}" --timeout=600s >/dev/null 2>&1
+    kubectl wait --for=condition=available deployment/"${frontend_name}"       -n "${namespace}" --timeout=600s >/dev/null 2>&1
 
-    echo "  All ${#deployment_names[@]} deployments are ready." | tee -a "${results_file}"
-
-    # Connectivity check: wait until first frontend service responds
-    first_frontend_svc="skupper-frontend-${num_frontends}-${it}"
-    frontend_url="http://${first_frontend_svc}:8080"
+    # Connectivity check: wait until frontend service responds
+    frontend_url="http://${frontend_svc}:8080"
     connectivity_ok="true"
     if ! wait_for_connectivity "${frontend_url}" "${CONNECTIVITY_TIMEOUT}"; then
       connectivity_ok="false"
@@ -380,8 +343,7 @@ EOF
     end_deploy_ms=$(now_ms)
     deploy_duration_ms=$((end_deploy_ms - start_deploy_ms))
 
-    total_deployments=$((num_frontends + 1))
-    echo "Deployment completed: N=${num_frontends}, iteration=${it}, deploy_time=${deploy_duration_ms} ms, connectivity_ok=${connectivity_ok}, total_deployments=${total_deployments}" | tee -a "${results_file}"
+    echo "Deployment completed: N=${replicas}, iteration=${it}, deploy_time=${deploy_duration_ms} ms, connectivity_ok=${connectivity_ok}" | tee -a "${results_file}"
 
     # -------------------------
     # Deletion timing (ACTUAL)
@@ -389,9 +351,7 @@ EOF
     start_delete_ms=$(now_ms)
 
     # Delete objects first (this triggers pod termination)
-    kubectl delete deploy,svc -n "${namespace}" \
-      -l "${EXPERIMENT_LABEL_KEY}=${EXPERIMENT_LABEL_VAL}" \
-      --ignore-not-found=true >/dev/null 2>&1 || true
+    kubectl delete deploy,svc -n "${namespace}"       -l "${EXPERIMENT_LABEL_KEY}=${EXPERIMENT_LABEL_VAL}"       --ignore-not-found=true >/dev/null 2>&1 || true
 
     # Now wait for pods + deploy + svc to be gone
     wait_for_experiment_actual_deleted
@@ -399,8 +359,8 @@ EOF
     end_delete_ms=$(now_ms)
     delete_duration_ms=$((end_delete_ms - start_delete_ms))
 
-    echo "Deletion completed: N=${num_frontends}, iteration=${it}, delete_time=${delete_duration_ms} ms" | tee -a "${results_file}"
-    echo "${it},${num_frontends},${deploy_duration_ms},${delete_duration_ms},${connectivity_ok},${total_deployments}" >> "${results_file}"
+    echo "Deletion completed: N=${replicas}, iteration=${it}, delete_time=${delete_duration_ms} ms" | tee -a "${results_file}"
+    echo "${it},${replicas},${deploy_duration_ms},${delete_duration_ms},${connectivity_ok}" >> "${results_file}"
     echo | tee -a "${results_file}"
 
     echo "Sleeping 60 seconds before next iteration..."
@@ -410,6 +370,6 @@ EOF
 done
 
 echo "==========================================="
-echo "Backend=1, Frontend=N SEPARATE DEPLOYMENTS experiment (non-CAM) completed."
+echo "Backend=1, Frontend=N scaling experiment (non-CAM, connectivity + ACTUAL delete) completed."
 echo "Results written to: ${results_file}"
 echo "==========================================="
